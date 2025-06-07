@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Myra Clothes</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; background: #cac2c2; color: #222; }
+    header { padding: 2rem; text-align: center; background: #4e0c91; color: white; }
+    .container { display: grid; gap: 2rem; padding: 2rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .product { border: 1px solid #eee; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px #0001; }
+    .product img { width: 100%; border-radius: 6px; }
+    .product h3 { margin-top: 0.5rem; }
+    button { background: #111; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; }
+    footer { text-align: center; padding: 2rem; background: #f8f8f8; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Myra Clothes</h1>
+  <p>Stylish & Affordable Clothing</p>
+</header>
+
+<section class="container">
+  <div class="product">
+    <img src="https://via.placeholder.com/300x400?text=Red+Dress" alt="Red Dress">
+    <h3>Red Dress</h3>
+    <p>$39.99</p>
+    <button onclick="buy('Red Dress', 39.99)">Buy Now</button>
+  </div>
+  <div class="product">
+    <img src="https://via.placeholder.com/300x400?text=White+Shirt" alt="White Shirt">
+    <h3>White Shirt</h3>
+    <p>$24.99</p>
+    <button onclick="buy('White Shirt', 24.99)">Buy Now</button>
+  </div>
+  <div class="product">
+    <img src="https://via.placeholder.com/300x400?text=Jeans" alt="Jeans">
+    <h3>Denim Jeans</h3>
+    <p>$49.99</p>
+    <button onclick="buy('Denim Jeans', 49.99)">Buy Now</button>
+  </div>
+  <div class="product">
+     <img src="https://via.placeholder.com/300x400?text=kurthis" alt="kurthis">
+        <h4>kurthis</h4>
+         <p>$10.99</p>
+    <button onclick="buy('stylish kurthis', 10.99)">Buy Now</button>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Myra Clothes
+</footer>
+
+<script>
+function buy(product, price) {
+  alert(`Redirecting to payment for ${product} - $${price}`);
+  // Integration: Replace this alert with a real checkout link to Stripe/PayPal
+}
+</script>
+
+</body>
+</html>
