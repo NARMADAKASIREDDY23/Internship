@@ -1,0 +1,123 @@
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - Myra Clothes</title>
+  <style>
+    :root {
+      --bg:#fff; --text:#222; --accent:#111; --error:#e63946; --ok:#2a9d8f;
+      --radius:8px;
+    }
+    body{font-family:sans-serif;margin:0;background:var(--bg);color:var(--text);}
+    header,footer{background:var(--accent);color:#fff;text-align:center;padding:2rem 1rem;}
+    main{max-width:640px;margin:3rem auto;padding:0 1rem;}
+    form{display:flex;flex-direction:column;gap:1.25rem}
+    label{display:flex;flex-direction:column;font-weight:600;font-size:0.95rem}
+    input,textarea{padding:0.75rem;border:1px solid #ccc;border-radius:var(--radius);font-size:1rem}
+    textarea{min-height:140px;resize:vertical}
+    button{background:var(--accent);color:#fff;border:none;border-radius:var(--radius);
+           padding:0.75rem 1.5rem;font-size:1rem;cursor:pointer}
+    .error-msg{color:var(--error);font-size:0.8rem;margin-top:0.4rem;display:none}
+    .field-error input,.field-error textarea{border-color:var(--error)}
+    .banner{display:none;padding:1rem;border-radius:var(--radius);margin-bottom:1.25rem;
+            text-align:center;font-weight:600}
+    .banner.ok{background:var(--ok);color:#fff}
+    .banner.fail{background:var(--error);color:#fff}
+  </style>
+</head>
+<body>
+
+<header><h1>Contact Us</h1><p>We’d love to hear from you!</p></header>
+
+<main>
+  <!-- Success / failure banner -->
+  <div id="banner" class="banner"></div>
+
+  <form id="contactForm" novalidate>
+    <label>
+      Name
+      <input type="text" id="name" required />
+      <span class="error-msg">Please enter at least 2 characters.</span>
+    </label>
+
+    <label>
+      Email
+      <input type="email" id="email" required />
+      <span class="error-msg">Please enter a valid email address.</span>
+    </label>
+
+    <label>
+      Subject
+      <input type="text" id="subject" required />
+      <span class="error-msg">Please enter at least 2 characters.</span>
+    </label>
+
+    <label>
+      Message
+      <textarea id="message" required></textarea>
+      <span class="error-msg">Message should be at least 10 characters.</span>
+    </label>
+
+    <button type="submit">Send Message</button>
+  </form>
+</main>
+
+<footer>&copy; 2025 Myra Clothes</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form   = document.getElementById('contactForm');
+  const banner = document.getElementById('banner');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    banner.style.display = 'none';             // reset banner
+    let firstInvalid = null;                   // to focus first bad field
+    let valid = true;
+
+    // helper to validate a field
+    const check = (id, test, msgIndex = 0) => {
+      const field   = document.getElementById(id);
+      const wrapper = field.parentElement;     // the <label> around it
+      const errMsg  = wrapper.querySelectorAll('.error-msg')[msgIndex];
+
+      if (test(field.value.trim())) {
+        wrapper.classList.remove('field-error');
+        errMsg.style.display = 'none';
+      } else {
+        wrapper.classList.add('field-error');
+        errMsg.style.display = 'block';
+        if (!firstInvalid) firstInvalid = field;
+        valid = false;
+      }
+    };
+
+    check('name',  v => v.length >= 2);
+    check('email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    check('subject', v => v.length >= 2);
+    check('message', v => v.length >= 10);
+
+    if (!valid) {
+      banner.textContent = 'Please correct the highlighted fields.';
+      banner.className = 'banner fail';
+      banner.style.display = 'block';
+      firstInvalid.focus();
+      return;
+    }
+
+    /* -------------------------------------------------
+       Replace the block below with a real API call
+       e.g. fetch('/api/contact', {method:'POST',body:JSON.stringify({...})})
+       ------------------------------------------------- */
+    banner.textContent = 'Thanks for reaching out! We’ll get back to you soon.';
+    banner.className = 'banner ok';
+    banner.style.display = 'block';
+    form.reset();
+  });
+});
+</script>
+
+</body>
+</html>
